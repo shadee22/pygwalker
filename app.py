@@ -9,10 +9,14 @@ st.set_page_config(
 )
 
 # Add Title
-st.title("Use Pygwalker In Streamlit")
+st.title("Pygwalker-Streamlit")
+
 
 # File uploader for CSV
 uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
+# Display link in light gray text if no file is uploaded
+if uploaded_file is None:
+    st.markdown('<small style="color: lightgray;">Default data is being used from <a href="https://kanaries-app.s3.ap-northeast-1.amazonaws.com/public-datasets/bike_sharing_dc.csv">kanaries dataset</a>.</small>', unsafe_allow_html=True)
 
 # Cache the renderer to optimize memory usage
 @st.cache_resource
@@ -28,7 +32,7 @@ else:
 
 renderer = get_pyg_renderer(df)
 
-st.subheader("Display Explore UI")
+# st.subheader("Display Explore UI")
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(
     ["graphic walker", "data profiling", "graphic renderer", "pure chart", "table"]
